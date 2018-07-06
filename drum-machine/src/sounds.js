@@ -38,9 +38,54 @@ function generateIR(context, duration, decay) {
   return impulse;
 }
 
+// Sample object
+var Sample = function(context) {
+  // Private properties
+
+  var soundBuffer = null;
+
+  // Public stuff
+
+  // Plays audio file
+  this.play = function() {
+    var s = context.createBufferSource();
+    s.buffer = soundBuffer;
+    s.connect(context.destination);
+
+    s.start(0);
+  };
+
+  // Loads audio file
+  this.load = function(url) {
+    let req = new XMLHttpRequest();
+    req.open("GET", url, true);
+    req.responseType = "arraybuffer";
+
+    req.onload = function() {
+      console.log("Its sent");
+      context.decodeAudioData(req.response, function(abuffer) {
+        soundBuffer = abuffer;
+        console.log("Got!");
+      });
+    };
+
+    req.send();
+  };
+};
+
+var kickSample;
+
+function init(context) {
+
+  kickSample = new Sample(context);
+  kickSample.load("/samples/snare.wav");
+  console.log("yea");
+
+}
+
 // Kick
 function kick(context, destination) {
-  const osc = context.createOscillator();
+  /*const osc = context.createOscillator();
   const gain = context.createGain();
   const filter = context.createBiquadFilter();
   filter.frequency.value = 3000;
@@ -63,7 +108,9 @@ function kick(context, destination) {
     context.currentTime + 0.0001,
     LENGTH
   );
-  osc.stop(context.currentTime + LENGTH + 0.1);
+  osc.stop(context.currentTime + LENGTH + 0.1);*/
+  kickSample.play();
+  console.log("played");
 }
 
 // Snare
@@ -289,4 +336,4 @@ function aux2(context, destination) {
   osc.stop(context.currentTime + LENGTH + 0.4);
 }
 
-export { kick, snare, tom1, tom2, hhopen, hhclosed, aux1, aux2, generateIR };
+export { kick, snare, tom1, tom2, hhopen, hhclosed, aux1, aux2, generateIR, init };

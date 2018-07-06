@@ -5,7 +5,7 @@ import SampleContainer from './Samples/SampleContainer';
 import Transport from './/Transport/Transport';
 import Sequencer from './Sequencer/Sequencer';
 import Mixer from './mixer';
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2, generateIR } from '../sounds';
+import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2, generateIR, init } from '../sounds';
 import './App.css';
 
 /* MAIN AUDIO CONTEXT */
@@ -103,6 +103,7 @@ class App extends Component {
   componentDidMount() {
     context.suspend();
     document.addEventListener("keydown", this.keyPressHandler, false);
+    init(context);
   }
 
   clearSequences = () => {
