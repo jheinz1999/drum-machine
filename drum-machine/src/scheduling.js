@@ -8,7 +8,7 @@ function setBPM(newBPM) {
 }
 
 // Sample object
-var Sample = function() {
+var Sample = function(context) {
   // Private properties
 
   var soundBuffer = null;
@@ -16,12 +16,12 @@ var Sample = function() {
   // Public stuff
 
   // Plays audio file
-  this.play = function(time) {
+  this.play = function(context, destination) {
     var s = context.createBufferSource();
     s.buffer = soundBuffer;
-    s.connect(context.destination);
+    s.connect(destination);
 
-    s.start(time);
+    s.start(0);
   };
 
   // Loads audio file
@@ -78,3 +78,5 @@ var Sequence = function(subdivision, sample) {
     stopped = true;
   };
 };
+
+export {Sample};

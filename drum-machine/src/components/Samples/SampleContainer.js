@@ -2,10 +2,10 @@ import React from "react";
 import { Container, Row } from "reactstrap";
 import Sample from "./Sample";
 import styled from "styled-components";
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds';
+import { kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2 } from '../../sounds';
 
 const sounds = {
-  kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
+  kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2
 }
 
 const RowSpacer = styled.div`

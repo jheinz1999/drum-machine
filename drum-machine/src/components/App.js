@@ -5,7 +5,7 @@ import SampleContainer from './Samples/SampleContainer';
 import Transport from './/Transport/Transport';
 import Sequencer from './Sequencer/Sequencer';
 import Mixer from './mixer';
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2, generateIR, init } from '../sounds';
+import { kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2, generateIR, init } from '../sounds';
 import './App.css';
 
 /* MAIN AUDIO CONTEXT */
@@ -31,8 +31,8 @@ const gains = {
   snare: snareGain,
   tom1: tom1Gain,
   tom2: tom2Gain,
-  hhopen: hhOpenGain,
-  hhclosed: hhClosedGain,
+  HHOpen: hhOpenGain,
+  HHClosed: hhClosedGain,
   aux1: aux1Gain,
   aux2: aux2Gain
 };
@@ -196,7 +196,7 @@ class App extends Component {
 
   keyPressHandler = (event) => {
     const sounds = {
-      kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
+      kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2
     }
     const keys = {
       'q': 'kick',

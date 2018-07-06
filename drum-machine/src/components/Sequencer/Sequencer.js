@@ -3,10 +3,10 @@ import { Container } from 'reactstrap';
 import Sequence from './Sequence';
 import Timeline from './Timeline';
 import styled from 'styled-components';
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds';
+import { kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2 } from '../../sounds';
 
 const sounds = {
-  kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
+  kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2
 }
 
 const LedSpacer = styled.div`
