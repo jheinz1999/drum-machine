@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 const TransportContainer = styled.div`
   width: 100%;
@@ -92,8 +94,27 @@ const BeatIndicator = styled.div`
   font-weight: bold;
 `;
 
+const options = ["Synth Drumkit", "Sampled Drumkit"];
+
 class Transport extends React.Component {
+
+  constructor(props) {
+
+    super(props);
+    this.state = {
+
+      kitName: this.props.kitName
+
+    };
+    console.log("WHAT THE FUCKJ " + this.props.kitName);
+
+  }
+
   render() {
+
+    var selected = {value: 0, label: this.props.kitName};
+    console.log(this.props.kitName);
+
     return (
       <TransportContainer>
         <PlayButton onClick={this.props.play}>PLAY</PlayButton>
@@ -102,9 +123,9 @@ class Transport extends React.Component {
         <BPMLabel>BPM</BPMLabel>
         <BPM defaultValue="120" onChange={this.props.changeBPM}/>
         <PauseButton onClick={this.props.clearSequences}>CLEAR</PauseButton>
-        <PadsToggle onClick={this.props.togglePads}>DRUM PADS</PadsToggle>
         <BeatIndicator>BEAT: {this.props.beat + 1}</BeatIndicator>
         <PadsToggle onClick={this.props.togglePads}>CONTROLS</PadsToggle>
+        <Dropdown options={options} onChange={this.props.setKit} value={selected}/>
       </TransportContainer>
     );
   }

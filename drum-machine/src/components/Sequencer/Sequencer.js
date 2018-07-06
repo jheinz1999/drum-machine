@@ -3,11 +3,6 @@ import { Container } from 'reactstrap';
 import Sequence from './Sequence';
 import Timeline from './Timeline';
 import styled from 'styled-components';
-import { kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2 } from '../../sounds';
-
-const sounds = {
-  kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2
-}
 
 const LedSpacer = styled.div`
   width: 100%;
@@ -31,13 +26,13 @@ class Sequencer extends React.Component {
           sequenceLength={this.props.sequenceLength}
         />
         <LedSpacer />
-        {Object.keys(sounds).map((name, index) => {
+        {Object.keys(this.props.sounds).map((name, index) => {
           return (
             <div>
               <Sequence
                 key={index}
                 name={name}
-                playSound={sounds[name]}
+                playSound={this.props.sounds[name]}
                 context={this.props.context}
                 gain={this.props.gains[name]}
                 clear={this.props.clear}

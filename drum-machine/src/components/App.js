@@ -5,7 +5,7 @@ import SampleContainer from './Samples/SampleContainer';
 import Transport from './/Transport/Transport';
 import Sequencer from './Sequencer/Sequencer';
 import Mixer from './mixer';
-import { kick, snare, HHOpen, HHClosed, tom1, tom2, aux1, aux2, generateIR, init } from '../sounds';
+import { kick, snare, tom1, tom2, HHOpen, HHClosed, aux1, aux2, generateIR, init, synthKick, synthSnare, synthTom1, synthTom2, synthHHOpen, synthHHClosed, blip1, blip2 } from '../sounds';
 import './App.css';
 
 /* MAIN AUDIO CONTEXT */
@@ -31,8 +31,8 @@ const gains = {
   snare: snareGain,
   tom1: tom1Gain,
   tom2: tom2Gain,
-  HHOpen: hhOpenGain,
-  HHClosed: hhClosedGain,
+  hhopen: hhOpenGain,
+  hhclosed: hhClosedGain,
   aux1: aux1Gain,
   aux2: aux2Gain
 };
@@ -83,6 +83,13 @@ tom2Gain.connect(delayInputGain);
 aux1Gain.connect(delayInputGain);
 aux2Gain.connect(delayInputGain);
 
+// Synth Kit
+const synthKit = {kick: synthKick, snare: synthSnare, tom1: synthTom1, tom2: synthTom2, hhopen: synthHHOpen, hhclosed: synthHHClosed, aux1: aux1, aux2: aux2};
+
+// Sample Kit
+const sampleKit = {kick: kick, snare: snare, tom1: tom1, tom2: tom2, hhopen: HHOpen, hhclosed: HHClosed, aux1: blip1, aux2: blip2};
+
+var currentKit = synthKit;
 
 let timer;
 let totalRewind = 0;
@@ -97,7 +104,8 @@ class App extends Component {
     tracks: 8,
     showPads: true,
     wasStopped: true,
-    clear: false
+    clear: false,
+    kitName: "Synth Drumkit"
   };
 
   componentDidMount() {
@@ -130,6 +138,28 @@ class App extends Component {
     } else {
       this.pause();
     }
+  }
+
+  setKit = newKit => {
+
+    console.log("NEW KASD " + newKit.label);
+
+    if (newKit.label === "Synth Drumkit") {
+
+      currentKit = synthKit;
+      this.setState({kitName: "Synth Drumkit"});
+
+    }
+
+    else {
+
+      currentKit = sampleKit;
+      this.setState({kitName: "Sampled Drumkit"});
+      console.log("Changed to sample");
+      console.log(this.state.kitName);
+
+    }
+
   }
 
   play() {
@@ -260,12 +290,15 @@ class App extends Component {
           beat={this.state.currentBeat}
           togglePads={this.togglePads}
           changeSequenceLength={this.changeSequenceLength}
+          setKit={this.setKit}
+          kitName={this.state.kitName}
         />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
           <SampleContainer
             context={context}
             gains={gains}
             show={this.state.showPads}
+            sounds = {currentKit}
           />
           {this.state.showPads ?  <Mixer mixerHandler={this.mixerHandler}/> : null}
         </div>
@@ -277,6 +310,7 @@ class App extends Component {
           tracks={this.state.tracks}
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}
+          sounds = {currentKit}
         />
       </Container>
     );

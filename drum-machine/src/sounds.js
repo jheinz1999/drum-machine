@@ -359,8 +359,8 @@ function aux2(context, destination) {
 
 function blip2(context, destination) {
 
-  blip2.play(context, destination);
+  blip2Sample.play(context, destination);
 
 }
 
-export { kick, snare, tom1, tom2, HHOpen, HHClosed, aux1, aux2, generateIR, init };
+export { kick, snare, tom1, tom2, HHOpen, HHClosed, aux1, aux2, generateIR, init, synthKick, synthSnare, synthTom1, synthTom2, synthHHOpen, synthHHClosed, blip1, blip2 };
